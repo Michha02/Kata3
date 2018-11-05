@@ -8,9 +8,11 @@ import java.awt.Dimension;
 import org.jfree.chart.JFreeChart;
 
 class HistogramDisplay extends ApplicationFrame{
+    private final Histogram<String> histogram;
 
-    HistogramDisplay(){
+    HistogramDisplay(Histogram<String> histogram){
         super("HISTOGRAMA");
+        this.histogram = histogram;
         setContentPane(createPanel());
         pack();
     }
@@ -33,9 +35,9 @@ class HistogramDisplay extends ApplicationFrame{
 
     private DefaultCategoryDataset createDataset(){
         DefaultCategoryDataset dataSet = new DefaultCategoryDataset();
-        dataSet.addValue(5,"","gmail.com");
-        dataSet.addValue(7,"","ulpgc.es");
-        dataSet.addValue(3,"","outlook.com");
+        for (String key : histogram.keySet()){
+            dataSet.addValue(histogram.get(key),"",key);
+        }
         return dataSet;
     }
 }
